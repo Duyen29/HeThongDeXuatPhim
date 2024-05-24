@@ -1,0 +1,222 @@
+[
+    {
+        "id": "0a1f6e6f8ba2108e",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d860c9cc60301d63",
+        "type": "inject",
+        "z": "0a1f6e6f8ba2108e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "294e53b042c1b93a"
+            ]
+        ]
+    },
+    {
+        "id": "294e53b042c1b93a",
+        "type": "http request",
+        "z": "0a1f6e6f8ba2108e",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8001/movie/200",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 290,
+        "y": 160,
+        "wires": [
+            [
+                "266e79055ab42507",
+                "50a6fc6acd6dbb46"
+            ]
+        ]
+    },
+    {
+        "id": "266e79055ab42507",
+        "type": "MSSQL",
+        "z": "0a1f6e6f8ba2108e",
+        "mssqlCN": "0a9e607d3e6ecf26",
+        "name": "",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "InsertMovie ",
+        "modeOpt": "",
+        "modeOptType": "execute",
+        "queryOpt": "payload",
+        "queryOptType": "editor",
+        "paramsOpt": "",
+        "paramsOptType": "editor",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [
+            {
+                "output": false,
+                "name": "movie_id",
+                "type": "Int",
+                "valueType": "msg",
+                "value": "payload.id",
+                "options": {
+                    "nullable": true,
+                    "primary": false,
+                    "identity": false,
+                    "readOnly": false
+                }
+            },
+            {
+                "output": false,
+                "name": "title",
+                "type": "NVarChar(?)",
+                "valueType": "msg",
+                "value": "payload.title",
+                "options": {
+                    "nullable": true,
+                    "primary": false,
+                    "identity": false,
+                    "readOnly": false
+                }
+            },
+            {
+                "output": false,
+                "name": "release_date",
+                "type": "Date",
+                "valueType": "msg",
+                "value": "payload.release_date",
+                "options": {
+                    "nullable": true,
+                    "primary": false,
+                    "identity": false,
+                    "readOnly": false
+                }
+            },
+            {
+                "output": false,
+                "name": "overview",
+                "type": "NVarChar(?)",
+                "valueType": "msg",
+                "value": "payload.overview",
+                "options": {
+                    "nullable": true,
+                    "primary": false,
+                    "identity": false,
+                    "readOnly": false
+                }
+            },
+            {
+                "output": false,
+                "name": "vote_average",
+                "type": "Float",
+                "valueType": "msg",
+                "value": "payload.vote_average",
+                "options": {
+                    "nullable": true,
+                    "primary": false,
+                    "identity": false,
+                    "readOnly": false
+                }
+            },
+            {
+                "output": false,
+                "name": "vote_count",
+                "type": "Int",
+                "valueType": "msg",
+                "value": "payload.vote_count",
+                "options": {
+                    "nullable": true,
+                    "primary": false,
+                    "identity": false,
+                    "readOnly": false
+                }
+            }
+        ],
+        "x": 580,
+        "y": 160,
+        "wires": [
+            [
+                "49b1479e61cc10a6"
+            ]
+        ]
+    },
+    {
+        "id": "50a6fc6acd6dbb46",
+        "type": "debug",
+        "z": "0a1f6e6f8ba2108e",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "49b1479e61cc10a6",
+        "type": "debug",
+        "z": "0a1f6e6f8ba2108e",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "0a9e607d3e6ecf26",
+        "type": "MSSQL-CN",
+        "tdsVersion": "7_4",
+        "name": "SQLServer",
+        "server": "127.0.0.1",
+        "port": "1433",
+        "encyption": true,
+        "trustServerCertificate": true,
+        "database": "BTL1",
+        "useUTC": false,
+        "connectTimeout": "15000",
+        "requestTimeout": "15000",
+        "cancelTimeout": "5000",
+        "pool": "5",
+        "parseJSON": false,
+        "enableArithAbort": true,
+        "readOnlyIntent": false
+    }
+]
